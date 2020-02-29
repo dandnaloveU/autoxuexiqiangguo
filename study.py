@@ -23,7 +23,7 @@ if os.path.isfile("db.npy"):
 # In[3]:
 
 
-def autoJob(tv,sleep_time,sum=6,click=True):
+def autoJob(tv,sleep_time,sum=7,click=True):
     count_click=0
     count=0
     drag_str='adb shell input swipe '+str(Width*0.5)+' '+str(Height*0.88)+' '+str(Width*0.5)+' '+str(Height*0.3)
@@ -37,24 +37,31 @@ def autoJob(tv,sleep_time,sum=6,click=True):
                     #分享，收藏，评论
                     if click and count_click<2:
                         #分享
-                        time.sleep(1)
+                        time.sleep(3)
                         driver.click(0.94*Width, 0.975*Height)
                         time.sleep(1)
                         driver(text="分享到学习强国").click()
                         time.sleep(1)
-                        driver.press.back()
-                        #收藏
-                        driver.click(0.84*Width, 0.975*Height)
+                        driver.press.back()     
                         #评论
                         time.sleep(1)
                         driver(text="欢迎发表你的观点").click()
                         time.sleep(2)
-                        os.system("adb shell am broadcast -a ADB_INPUT_TEXT --es msg '富强民主文明和谐'")
+                        os.system("adb shell am broadcast -a ADB_INPUT_TEXT --es msg '武汉加油！共渡难关！'")
                         os.system("adb shell input keyevent 66")#不知道为什么输入一个回车，点击发布才有反应
                         time.sleep(2)
                         driver(text="发布").click()
                         count_click=count_click+1
-                        
+#收藏
+                        time.sleep(5)
+                        driver.click(0.84*Width, 0.975*Height)
+                        time.sleep(1)
+                        driver.click(0.84*Width, 0.975*Height)
+#删除发布的评论
+                        time.sleep(2)
+                        driver(text="删除").click()
+                        time.sleep(2)
+                        driver(text="确认").click()
                     count=count+1
                     all_of_list.append(txt)
                     print("正在"+tv+"...",txt)
@@ -126,13 +133,17 @@ def watch_video():
 
 if __name__ == '__main__':
     #自动打开学习强国
-    #os.system('adb shell am start cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity')
+    os.system('adb shell am start cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity')
     #屏幕高度
     Height=driver.info['displayHeight']
     Width=driver.info['displayWidth']
-
+    #切换adb输入法
+    os.system('adb shell ime set com.android.adbkeyboard/.AdbIME')
+#收藏
+#    time.sleep(10)
     watch_local()
     read_articles()
     watch_video()
-    #熄灭屏幕
+    #切换回搜狗输入法
+    os.system('adb shell ime set com.sohu.inputmethod.sogou.meizu/com.sohu.inputmethod.sogou.SogouIME')    #熄灭屏幕
     os.system('adb shell input keyevent 26')
