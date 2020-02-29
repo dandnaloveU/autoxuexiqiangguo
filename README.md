@@ -1,5 +1,9 @@
 # xuexiqiangguo
 超级简单的解放双手的学习强国脚本，旨在提高学习效率，妈妈再也不用担心我的学习（每天30分）～
+### 2020/02/29 修改说明
+已加入自动修改为adb输入法，感谢[liuzhijie443](https://github.com/liuzhijie443)提供的代码。
+由于切换回的输入法因人而异，所以已经注释，[修改输入法](https://blog.csdn.net/weijinqian0/article/details/80390958)。
+另外顺便上传windows批处理文件，将其与study.py放在一个目录即可，使用时直接运行autoStudy.bat，linux同理。
 ### 2020/02/06新增功能
 - 评论，收藏，分享，本地
 - 由于未充分了解uiautomator，看文章或视频时经常出异常，增添捕获异常，减少程序异常终止。
