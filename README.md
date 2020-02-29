@@ -2,7 +2,7 @@
 超级简单的解放双手的学习强国脚本，旨在提高学习效率，妈妈再也不用担心我的学习（每天30分）～
 ### 2020/02/29 修改说明
 已加入自动修改为adb输入法，感谢[liuzhijie443](https://github.com/liuzhijie443)提供的代码。
-由于切换回的输入法因人而异，所以已经注释，[修改输入法](https://blog.csdn.net/weijinqian0/article/details/80390958)。
+由于切换回的输入法因人而异，所以已经注释，[修改输入法教程](https://blog.csdn.net/weijinqian0/article/details/80390958)。
 另外顺便上传windows批处理文件，将其与study.py放在一个目录即可，使用时直接运行autoStudy.bat，linux同理。
 ### 2020/02/06新增功能
 - 评论，收藏，分享，本地
@@ -17,15 +17,15 @@
 ```
 sudo apt-get install adb
 ```
-2.安装依赖包
+2. 安装Python3
+- 安装中(^_^)...
+3.安装依赖包
 ```
 pip install uiautomator
 ```
 ```
 pip install numpy
 ```
-3. 安装Python3
-- 安装中(^_^)...
 ### 2.运行
 切换至项目目录，手机或者模拟器需在运行python脚本前自己打开学习强国。
 #### 手机用户
