@@ -18,7 +18,8 @@
 sudo apt-get install adb
 ```
 2.安装Python3
-- 安装中(^_^)...
+安装中(^_^)...
+
 3.安装依赖包
 ```
 pip install uiautomator
