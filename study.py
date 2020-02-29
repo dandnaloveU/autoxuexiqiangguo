@@ -136,7 +136,7 @@ def watch_video():
 
 if __name__ == '__main__':
     #自动打开学习强国
-    os.system('adb shell am start cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity')
+    #os.system('adb shell am start cn.xuexi.android/com.alibaba.android.rimet.biz.SplashActivity')
     #屏幕高度
     Height=driver.info['displayHeight']
     Width=driver.info['displayWidth']
