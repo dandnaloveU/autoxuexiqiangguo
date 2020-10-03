@@ -1,7 +1,7 @@
 # xuexiqiangguo
 想法与整体架构来自[IKeepMoving/xuexiqiangguo](https://github.com/IKeepMoving/xuexiqiangguo),我只是在此基础上做了新版本的适配和功能更新。
 每天30分，除了答题所有功能已完成。
-2020年10月5日更新：
+###2020年10月4日更新：
 	增加订阅功能，评论池随机评论。
 ### 1.准备
 1.安装adb
@@ -10,7 +10,7 @@
 ```
 sudo apt-get install adb
 ```
--MACOS用户
+- MACOS用户
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
@@ -48,5 +48,5 @@ python study.py
 ```
 ### 3.问题
 如果抛出异常，试试kill掉adb，重启试试。
-声明：
+###声明：
 个人非常不建议过度依赖自动工具，学习强国内有许多有营养的资料，本程序只适合工作繁忙的上班族在没有时间的时候救急。
