@@ -10,20 +10,28 @@ import time
 import os
 import sys
 import random
-path='/Volumes/Macintosh HD - 数据/python work/'
+
+
+#######用户编辑区############
+isPhone=0#0为模拟器用户，1为手机用户
+Height=1280#分辨率的高
+Width=720#分辨率的宽
+path='/Volumes/Macintosh HD - 数据/python work/'#替换为缓存文件的目录
+word=["中国加油！未来在我们手中","希望世界和平，人人幸福安康"]#评论池
+############################
+
+
 savefile=path+'db.npy'
 os.system("adb kill-server")
-time.sleep(1)
-os.system("adb connect 127.0.0.1:62001")#连接夜神模拟器
-word=["中国加油！未来在我们手中","希望世界和平，人人幸福安康"]
-set_send="adb shell am broadcast -a ADB_INPUT_TEXT --es msg '"+word[random.randint(0,1)]+"'"#随机选择语句
+set_send="adb shell am broadcast -a ADB_INPUT_TEXT --es msg '"+word[random.randint(0,len(word)-1]+"'"#随机选择语句
 # In[2]:
 
-
-Height=1280
-Width=720
 all_of_list=[]
 drag_str='adb shell input swipe '+str(Width*0.5)+' '+str(Height*0.88)+' '+str(Width*0.5)+' '+str(Height*0.3)#模拟滑动
+if isPhone==0:
+    os.system("adb connect 127.0.0.1:62001")#连接夜神模拟器
+else:
+    os.system("adb start-server")
 if os.path.isfile(savefile):
     all_of_list = np.load (savefile).tolist()
 
@@ -66,19 +74,6 @@ def autoJob(tv,sleep_time,sum=6,click=True):
                         driver(text="发布").click()
                         count_click=count_click+1
                         driver.press.back()
-                        '''
-                        @liuzhijie443
-                        #收藏
-                        time.sleep(5)
-                        driver.click(0.84*Width, 0.975*Height)
-                        time.sleep(1)
-                        driver.click(0.84*Width, 0.975*Height)
-                        #删除发布的评论
-                        time.sleep(2)
-                        driver(text="删除").click()
-                        time.sleep(2)
-                        driver(text="确认").click()
-                        '''
                     else:
                         time.sleep(sleep_time-5)
                     count=count+1
@@ -179,10 +174,6 @@ if __name__ == '__main__':
     print("任务完成")
     os.system("adb kill-server")
     print("adb连接断开")
-    
-
-    # driver(description='订阅').click
-
     #熄灭屏幕
     # os.system('adb shell input keyevent 26')
    
