@@ -9,16 +9,23 @@ import numpy as np
 import time
 import os
 import sys
-
-
+import random
+path='/Volumes/Macintosh HD - 数据/python work/'
+savefile=path+'db.npy'
+os.system("adb kill-server")
+time.sleep(1)
+os.system("adb connect 127.0.0.1:62001")#连接夜神模拟器
+word=["中国加油！未来在我们手中","希望世界和平，人人幸福安康"]
+set_send="adb shell am broadcast -a ADB_INPUT_TEXT --es msg '"+word[random.randint(0,1)]+"'"#随机选择语句
 # In[2]:
 
 
 Height=1280
 Width=720
 all_of_list=[]
-if os.path.isfile("db.npy"):
-    all_of_list = np.load ("db.npy").tolist()
+drag_str='adb shell input swipe '+str(Width*0.5)+' '+str(Height*0.88)+' '+str(Width*0.5)+' '+str(Height*0.3)#模拟滑动
+if os.path.isfile(savefile):
+    all_of_list = np.load (savefile).tolist()
 
 # In[3]:
 
@@ -26,7 +33,6 @@ if os.path.isfile("db.npy"):
 def autoJob(tv,sleep_time,sum=6,click=True):
     count_click=0
     count=0
-    drag_str='adb shell input swipe '+str(Width*0.5)+' '+str(Height*0.88)+' '+str(Width*0.5)+' '+str(Height*0.3)
     for _ in range(100):
         text_lists=driver(className='android.widget.TextView')
         try:
@@ -34,8 +40,12 @@ def autoJob(tv,sleep_time,sum=6,click=True):
                 txt=text_lists[i].text
                 if len(txt)>11 and txt not in all_of_list and count<sum:
                     driver(text=txt,className='android.widget.TextView').click()
+                    time.sleep(5)
+                    all_of_list.append(txt)
+                    print("正在"+tv+"...",txt)
                     #分享，收藏，评论
                     if click and count_click<2:
+                        time.sleep(sleep_time-5) 
                         #分享
                         time.sleep(4)
                         driver.click(0.94*Width, 0.975*Height)
@@ -49,11 +59,13 @@ def autoJob(tv,sleep_time,sum=6,click=True):
                         time.sleep(1)
                         driver(text="欢迎发表你的观点").click()
                         time.sleep(2)
-                        os.system("adb shell am broadcast -a ADB_INPUT_TEXT --es msg '中国加油，武汉加油！'")
-                        os.system("adb shell input keyevent 66")#不知道为什么输入一个回车，点击发布才有反应
+                        os.system(set_send)#评论池随机发送一个评论
+                        # os.system("adb shell am broadcast -a ADB_INPUT_TEXT --es msg '中国加油'")
+                        #os.system("adb shell input keyevent 66")#不知道为什么输入一个回车，点击发布才有反应
                         time.sleep(2)
                         driver(text="发布").click()
                         count_click=count_click+1
+                        driver.press.back()
                         '''
                         @liuzhijie443
                         #收藏
@@ -67,10 +79,9 @@ def autoJob(tv,sleep_time,sum=6,click=True):
                         time.sleep(2)
                         driver(text="确认").click()
                         '''
+                    else:
+                        time.sleep(sleep_time-5)
                     count=count+1
-                    all_of_list.append(txt)
-                    print("正在"+tv+"...",txt)
-                    time.sleep(sleep_time)
                     driver.press.back()
         except BaseException:
             print("抛出异常，程序继续执行...")
@@ -94,15 +105,15 @@ def watch_local():
 def read_articles():
     time.sleep(2)
     #切换到要闻界面
-    driver(text='新思想').click()
-    autoJob(tv="阅读文章",sleep_time=130)
+    driver(text='要闻').click()
+    autoJob(tv="阅读文章",sleep_time=120)
     print("阅读文章结束")
 
 
 # In[5]:
 
 
-#观看视频,每个视频观看20秒，以及17分钟新闻联盟
+#观看视频,每个视频观看35秒，以及3分钟新闻联播
 def watch_video():
     time.sleep(2)
     #切换到电视台页面
@@ -124,13 +135,32 @@ def watch_video():
     if len(text_list)>2500:
         text_list = text_list[25:]
     #存储已看视频和文章
-    np.save ('db.npy',text_list)
+    np.save (savefile,text_list)
     
     print("正在观看新闻联播...")
-    time.sleep(1050)
+    time.sleep(300)
     driver.press('back')
     print("观看视频结束.")
 
+def subscribe():
+    count=0
+    driver(resourceId="cn.xuexi.android:id/comm_head_xuexi_score").click()
+    time.sleep(3)
+    os.system(drag_str)
+    time.sleep(1)
+    os.system(drag_str)
+    time.sleep(1)
+    driver.click(0.875*Width, 0.604*Height)
+    time.sleep(3)
+    while "订阅" in driver.description and "已订阅" not in driver.description:
+        os.system(drag_str)
+        time.sleep(1)
+    for a in driver(className="android.widget.ImageView"):
+        if "订阅" in a.description and "已订阅" not in a.description:
+            if count<2:
+                a.click()
+                count+=1
+    
 
 # In[6]:
 
@@ -145,7 +175,14 @@ if __name__ == '__main__':
     watch_local()
     read_articles()
     watch_video()
-    #切换回搜狗输入法
-    #os.system('adb shell ime set com.sohu.inputmethod.sogou.meizu/com.sohu.inputmethod.sogou.SogouIME')
+    # subscribe()
+    print("任务完成")
+    os.system("adb kill-server")
+    print("adb连接断开")
+    
+
+    # driver(description='订阅').click
+
     #熄灭屏幕
-    os.system('adb shell input keyevent 26')
+    # os.system('adb shell input keyevent 26')
+   
