@@ -23,7 +23,7 @@ word=["中国加油！未来在我们手中","希望世界和平，人人幸福�
 
 savefile=path+'db.npy'
 os.system("adb kill-server")
-set_send="adb shell am broadcast -a ADB_INPUT_TEXT --es msg '"+word[random.randint(0,len(word)-1]+"'"#随机选择语句
+set_send="adb shell am broadcast -a ADB_INPUT_TEXT --es msg '"+word[random.randint(0,len(word)-1)]+"'"#随机选择语句
 # In[2]:
 
 all_of_list=[]
@@ -78,6 +78,7 @@ def autoJob(tv,sleep_time,sum=6,click=True):
                         time.sleep(sleep_time-5)
                     count=count+1
                     driver.press.back()
+                
         except BaseException:
             print("抛出异常，程序继续执行...")
         if count >=sum:
@@ -137,25 +138,34 @@ def watch_video():
     driver.press('back')
     print("观看视频结束.")
 
+def check_subscribe():
+    for a in driver(className="android.widget.ImageView"): 
+        if "订阅" in a.description and "已订阅" not in a.description:
+            if count<2:
+                print(a.description)
+                a.click()
+                count+=1
+            else:
+                return    
+    else:
+        os.system(drag_str)
+        time.sleep(1)
+        check_subscribe()
+
 def subscribe():
     count=0
     driver(resourceId="cn.xuexi.android:id/comm_head_xuexi_score").click()
-    time.sleep(3)
+    time.sleep(8)
     os.system(drag_str)
-    time.sleep(1)
+    time.sleep(2)
     os.system(drag_str)
-    time.sleep(1)
-    driver.click(0.875*Width, 0.604*Height)
+    time.sleep(2)
+    os.system(drag_str)
     time.sleep(3)
-    while "订阅" in driver.description and "已订阅" not in driver.description:
-        os.system(drag_str)
-        time.sleep(1)
-    for a in driver(className="android.widget.ImageView"):
-        if "订阅" in a.description and "已订阅" not in a.description:
-            if count<2:
-                a.click()
-                count+=1
-    
+    driver.click(0.883*Width, 0.459*Height)
+    time.sleep(3)   
+    check_subscribe()
+
 
 # In[6]:
 
@@ -167,9 +177,9 @@ if __name__ == '__main__':
     Width=driver.info['displayWidth']
     #切换adb输入法
     os.system('adb shell ime set com.android.adbkeyboard/.AdbIME')
-    watch_local()
+    # watch_local()
     read_articles()
-    watch_video()
+    # watch_video()
     # subscribe()
     print("任务完成")
     os.system("adb kill-server")
