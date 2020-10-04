@@ -2,9 +2,6 @@
 想法与整体架构来自[IKeepMoving/xuexiqiangguo](https://github.com/IKeepMoving/xuexiqiangguo),我只是在此基础上做了新版本的适配和功能更新。
 每天30分，除了答题所有功能已完成。
 
-###2020年10月4日更新：
-	增加订阅功能，评论池随机评论。
-	
 ### 1.准备
 1.安装adb
 - Windows用户下载[adb资源](https://pan.baidu.com/s/16EpQvsGX19L9b6vZwRx7Aw)，安装教程自行百度。
@@ -21,7 +18,7 @@ brew cask install android-platform-tools
 ```
 
 2.安装Python3
-自行百度
+自行百度，建议版本高于3.7。
 3.安装依赖包
 ```
 pip install uiautomator
@@ -29,6 +26,8 @@ pip install uiautomator
 ```
 pip install numpy
 ```
+4.手机或者模拟器安装adb输入法
+- 下载安装[adb输入法](https://github.com/senzhk/ADBKeyBoard/blob/master/ADBKeyboard.apk)。
 ### 2.运行
 切换至项目目录，手机或者模拟器需在运行python脚本前自己打开学习强国。
 #### 手机用户
