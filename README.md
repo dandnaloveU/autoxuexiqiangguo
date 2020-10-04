@@ -19,6 +19,7 @@ brew cask install android-platform-tools
 
 2.安装Python3
 自行百度，建议版本高于3.7。
+
 3.安装依赖包
 ```
 pip install uiautomator
@@ -38,6 +39,7 @@ isPhone=1
 ```
 #### Android模拟器用户
 - 通过adb连接模拟器，其中62001为夜神模拟器默认端口号，可以参考这篇文章[各模拟器默认端口号](https://www.cnblogs.com/HakunaMatata-/p/10609307.html)。模拟器用户由于模拟器加载视频慢，所以time.sleep(times)时间要长一些，才能有效观看。
+
 -将isPhone设为0
 ```
 isPhone=0
