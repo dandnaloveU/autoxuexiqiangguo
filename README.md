@@ -2,6 +2,9 @@
 想法与整体架构来自[IKeepMoving/xuexiqiangguo](https://github.com/IKeepMoving/xuexiqiangguo),我只是在此基础上做了新版本的适配和功能更新。
 每天30分，除了答题所有功能已完成。
 
+###0.声明：
+个人非常不建议过度依赖自动工具，学习强国内有许多有营养的资料，本程序只适合工作繁忙的上班族在没有时间的时候救急。
+
 ### 1.准备
 1.安装adb
 - Windows用户下载[adb资源](https://pan.baidu.com/s/16EpQvsGX19L9b6vZwRx7Aw)，安装教程自行百度。
@@ -53,5 +56,3 @@ python study.py
 ### 3.问题
 如果抛出异常，试试kill掉adb，重启试试。
 
-###声明：
-个人非常不建议过度依赖自动工具，学习强国内有许多有营养的资料，本程序只适合工作繁忙的上班族在没有时间的时候救急。
