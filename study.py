@@ -27,6 +27,7 @@ set_send="adb shell am broadcast -a ADB_INPUT_TEXT --es msg '"+word[random.randi
 # In[2]:
 
 all_of_list=[]
+subscribe_count=0
 drag_str='adb shell input swipe '+str(Width*0.5)+' '+str(Height*0.88)+' '+str(Width*0.5)+' '+str(Height*0.3)#模拟滑动
 if isPhone==0:
     os.system("adb connect 127.0.0.1:62001")#连接夜神模拟器
@@ -101,7 +102,7 @@ def watch_local():
 def read_articles():
     time.sleep(2)
     #切换到要闻界面
-    driver(text='要闻').click()
+    driver(text='推荐').click()
     autoJob(tv="阅读文章",sleep_time=120)
     print("阅读文章结束")
 
@@ -139,12 +140,12 @@ def watch_video():
     print("观看视频结束.")
 
 def check_subscribe():
+    global subscribe_count
     for a in driver(className="android.widget.ImageView"): 
         if "订阅" in a.description and "已订阅" not in a.description:
-            if count<2:
-                print(a.description)
+            if subscribe_count<2:
                 a.click()
-                count+=1
+                subscribe_count+=1
             else:
                 return    
     else:
@@ -153,7 +154,7 @@ def check_subscribe():
         check_subscribe()
 
 def subscribe():
-    count=0
+    
     driver(resourceId="cn.xuexi.android:id/comm_head_xuexi_score").click()
     time.sleep(8)
     os.system(drag_str)
@@ -177,9 +178,9 @@ if __name__ == '__main__':
     Width=driver.info['displayWidth']
     #切换adb输入法
     os.system('adb shell ime set com.android.adbkeyboard/.AdbIME')
-    # watch_local()
+    watch_local()
     read_articles()
-    # watch_video()
+    watch_video()
     # subscribe()
     print("任务完成")
     os.system("adb kill-server")
