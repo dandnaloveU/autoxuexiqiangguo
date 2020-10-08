@@ -102,7 +102,7 @@ def watch_local():
 def read_articles():
     time.sleep(2)
     #切换到要闻界面
-    driver(text='推荐').click()
+    driver(text='新思想').click()
     autoJob(tv="阅读文章",sleep_time=120)
     print("阅读文章结束")
 
@@ -181,7 +181,7 @@ if __name__ == '__main__':
     watch_local()
     read_articles()
     watch_video()
-    # subscribe()
+    subscribe()
     print("任务完成")
     os.system("adb kill-server")
     print("adb连接断开")
