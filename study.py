@@ -39,7 +39,7 @@ if os.path.isfile(savefile):
 # In[3]:
 
 
-def autoJob(tv,sleep_time,sum=6,click=True):
+def autoJob(tv,sleep_time,sum=7,click=True):
     count_click=0
     count=0
     for _ in range(100):
@@ -145,6 +145,7 @@ def check_subscribe():
         if "订阅" in a.description and "已订阅" not in a.description:
             if subscribe_count<2:
                 a.click()
+                time.sleep(3)
                 subscribe_count+=1
             else:
                 return    
@@ -163,11 +164,18 @@ def subscribe():
     time.sleep(2)
     os.system(drag_str)
     time.sleep(3)
+    os.system(drag_str)
+    time.sleep(3)
     driver.click(0.883*Width, 0.459*Height)
-    time.sleep(3)   
+    time.sleep(5)   
     check_subscribe()
 
-
+def watchVideo():
+    driver(text="百灵").click()
+    time.sleep(3)
+    driver.click(0.465*Width, 0.285*Height)
+    time.sleep(4000)
+    driver.press("back")
 # In[6]:
 
 if __name__ == '__main__':
@@ -179,8 +187,9 @@ if __name__ == '__main__':
     #切换adb输入法
     os.system('adb shell ime set com.android.adbkeyboard/.AdbIME')
     watch_local()
+    watchVideo()
     read_articles()
-    watch_video()
+    # watch_video()
     subscribe()
     print("任务完成")
     os.system("adb kill-server")
