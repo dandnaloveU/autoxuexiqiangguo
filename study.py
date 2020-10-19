@@ -172,7 +172,7 @@ def subscribe():
 
 def watchVideo():
     driver(text="百灵").click()
-    time.sleep(3)
+    time.sleep(5)
     driver.click(0.465*Width, 0.285*Height)
     time.sleep(4000)
     driver.press("back")
@@ -187,9 +187,9 @@ if __name__ == '__main__':
     #切换adb输入法
     os.system('adb shell ime set com.android.adbkeyboard/.AdbIME')
     watch_local()
-    watchVideo()
     read_articles()
-    # watch_video()
+    watchVideo()
+    # watch_video()已经废弃
     subscribe()
     print("任务完成")
     os.system("adb kill-server")
